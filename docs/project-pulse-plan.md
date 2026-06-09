@@ -2,81 +2,79 @@
 
 ## Summary
 
-Build a lightweight dashboard frontend for Mona's Project Pulse by creating a static app under `app/` and a VS Code launch configuration. The dashboard will display project status cards using `app/project-data.json`, styled with `app/styles.css`, and rendered through `app/index.html`.
+Build a lightweight Project Pulse dashboard in `app/` and add a VS Code launch configuration. The dashboard will render project cards from `app/project-data.json`, styled by `app/styles.css`, and displayed via `app/index.html`. `.vscode/launch.json` will provide a reproducible preview path.
 
-## File ownership and responsibilities
+## File responsibilities
 
 - `app/index.html`
   - Owner: Coder
-  - Responsibility: Build the dashboard structure, wire in project data, and include references to styles and data.
+  - Responsibility: Dashboard structure, JSON loading, card rendering, and linking styles.
 
 - `app/styles.css`
   - Owner: Designer
-  - Responsibility: Define visual layout, responsive cards, status badges, typography, spacing, and accessible color contrast.
+  - Responsibility: Visual design, responsive layout, badge styles, spacing, and accessibility.
 
 - `app/project-data.json`
   - Owner: Coder
-  - Responsibility: Provide example dashboard data for Project Pulse, including project name, status, priority, owner, and progress.
+  - Responsibility: Sample project status dataset with fields like title, status, priority, owner, due date, progress, and summary.
 
 - `.vscode/launch.json`
   - Owner: Coder
-  - Responsibility: Configure a deterministic Codespace launch that serves the dashboard from `app/`, opening `index.html`.
+  - Responsibility: Preview configuration for opening the static dashboard from `app/index.html`.
 
-- `docs/project-pulse-plan.md`
-  - Owner: Planner
-  - Responsibility: Document the implementation plan, including dependencies, parallel work decisions, and validation expectations.
+## Ordered implementation steps
 
-## Implementation steps
+1. Define `app/project-data.json`
+   - Create sample dashboard entries.
+   - Include necessary fields for status cards and labels.
 
-1. Create `app/project-data.json`
-   - Define a small set of sample project records.
-   - Include fields for title, status, priority, owner, due date, progress, and summary.
-   - Use JSON only, no script or dynamic data injection.
+2. Build `app/index.html`
+   - Create HTML shell.
+   - Load and render `project-data.json`.
+   - Reference `styles.css`.
 
-2. Create `app/index.html`
-   - Add a static HTML page that loads `project-data.json` using JavaScript.
-   - Render a dashboard header, project cards, and status semantics.
-   - Reference `styles.css` and include minimal client-side script.
-   - Keep markup structured for accessibility.
+3. Style `app/styles.css`
+   - Implement dashboard and card layout.
+   - Add status badges, responsive rules, typography, and accessible contrast.
 
-3. Create `app/styles.css`
-   - Add dashboard layout rules, card styles, badge styles, and responsive behavior.
-   - Ensure readable typography, spacing, and a polished UI.
-   - Use CSS class names like `.dashboard`, `.project-card`, `.status-badge`, and `.priority-label`.
-
-4. Create `.vscode/launch.json`
-   - Configure a launch profile that launches a static server or opens `index.html` in the workspace.
-   - Set `cwd` to `${workspaceFolder}/app`.
-   - Use deterministic values so the dashboard is easy to preview.
+4. Add `.vscode/launch.json`
+   - Configure workspace launch profile.
+   - Point to `app/index.html` or a simple static server in `app/`.
 
 ## Dependencies
 
-- `app/index.html` depends on `app/project-data.json` for the sample dashboard content.
-- `app/index.html` depends on `app/styles.css` for layout and presentation.
-- `.vscode/launch.json` depends on the app folder structure existing and `index.html` being the entrypoint.
+- `app/index.html` depends on:
+  - `app/project-data.json`
+  - `app/styles.css`
+
+- `.vscode/launch.json` depends on:
+  - `app/index.html`
+  - `app/` folder path
 
 ## Parallel work decisions
 
-- `app/styles.css` can be worked on in parallel with `app/project-data.json` because styling does not depend on the final JSON contents beyond expected field names.
-- `app/index.html` should be completed after `app/project-data.json` is defined, since it reads the JSON schema and renders the cards.
-- `.vscode/launch.json` can be created in parallel with `app/styles.css` and `app/project-data.json` because it only depends on the app directory layout.
+- `app/styles.css` can be developed in parallel with `app/project-data.json` because styling does not require final JSON content beyond expected fields.
+- `.vscode/launch.json` can be created in parallel with both CSS and JSON since it only depends on the app structure.
+- `app/index.html` should follow after `app/project-data.json` because the rendering logic must match the JSON schema.
 
 ## Validation expectations
 
-- `app/index.html` loads successfully in a browser or Codespace preview without JavaScript errors.
-- The dashboard renders at least three project cards from `app/project-data.json`.
-- Status badges and priority labels are visually distinct.
-- The layout responds to narrow and wide screen widths.
-- `.vscode/launch.json` opens the app from `app/` and targets `index.html` rather than a directory listing.
-- The plan file documents responsibilities, dependencies, parallel work decisions, and expected validation checks.
+- `app/index.html` loads without JavaScript errors.
+- Dashboard shows at least three project cards.
+- Status badges and priority labels are clear and visually distinct.
+- Responsive layout works on narrow and wide screens.
+- `.vscode/launch.json` launches the app preview correctly.
+- The implementation plan documents responsibilities, dependencies, parallel work, and validation.
 
-## Edge cases and notes
+## Edge cases
 
-- If the Codespace preview cannot serve `index.html` directly, use a simple static server configuration in `.vscode/launch.json` that points to `app/`.
-- Keep the data file simple; avoid external API calls or runtime dependencies.
-- Ensure the UI is accessible and readable without relying on custom fonts.
+- If direct file preview is unsupported, `.vscode/launch.json` should use a local static server for `app/`.
+- Keep data static and simple; avoid external API dependencies.
+- Ensure readability without custom fonts; use safe web typography.
+- Handle missing or malformed JSON gracefully in the dashboard script.
 
 ## Open questions
 
-- Should the dashboard include any interactive filtering or search controls, or remain a static status board for the first implementation?
-- Does Mona prefer a specific color palette or brand tone for Project Pulse, or should the designer choose a polished neutral style?
+- Should the first version include filtering/search controls, or remain a static status board?
+- Is there a preferred color palette or branding direction for Project Pulse?
+- Should the dashboard include progress bars or only status badges?
