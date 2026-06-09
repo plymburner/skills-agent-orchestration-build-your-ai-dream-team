@@ -1,0 +1,25 @@
+{
+  "projects": [
+    {
+      "name": "Pulse Redesign",
+      "owner": "Ava Chen",
+      "status": "On Track",
+      "recentActivity": "Updated milestone dates and resolved onboarding blocker.",
+      "priority": "High"
+    },
+    {
+      "name": "Sprint Metrics",
+      "owner": "Noah Patel",
+      "status": "At Risk",
+      "recentActivity": "Dependency review delayed due to API changes.",
+      "priority": "Medium"
+    },
+    {
+      "name": "Release Readiness",
+      "owner": "Mia Lopez",
+      "status": "On Hold",
+      "recentActivity": "Waiting on design approval for launch banners.",
+      "priority": "Low"
+    }
+  ]
+}
